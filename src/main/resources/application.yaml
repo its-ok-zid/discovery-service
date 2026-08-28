@@ -1,0 +1,24 @@
+server:
+  port: 8761 # The industry default port for Eureka
+
+spring:
+  application:
+    name: discovery-service
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    register-with-eureka: false # We are the server, we don't register with ourselves
+    fetch-registry: false       # We are the server, we don't fetch from anyone else
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+  server:
+    enable-self-preservation: false
+
+# Expose Actuator endpoints for future observability
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health, info
